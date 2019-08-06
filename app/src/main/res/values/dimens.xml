@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_x1">16dp</dimen>
+    <dimen name="coll_header_height">150dp</dimen>
+    <dimen name="padding_edit_text_top">10dp</dimen>
+</resources>

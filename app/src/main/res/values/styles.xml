@@ -1,0 +1,44 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="InfoText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:padding">@dimen/margin_x1</item>
+    </style>
+
+    <style name="TransparentText">
+        <item name="android:textColor">@color/colorTransparentBlack</item>
+    </style>
+
+    <style name="ValueText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="HeaderText">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">34sp</item>
+    </style>
+
+    <style name="EditTextEmail">
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:background">@drawable/rectangle_email</item>
+    </style>
+
+    <style name="EditTextPassword">
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:background">@drawable/rectangle_password</item>
+    </style>
+
+</resources>

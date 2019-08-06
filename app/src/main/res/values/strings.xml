@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Exchange rates</string>
+    <string name="welcome_text_header">Для продолжения нужно войти</string>
+    <string name="string_button_register">Зарегистрироваться</string>
+    <string name="string_button_login">Войти</string>
+    <string name="hint_e_mail">E-mail</string>
+    <string name="hint_password">Пароль</string>
+    <string name="text_btn_register">Регистрация</string>
+    <string name="text_btn_forgot">Забыли пароль?</string>
+    <string name="text_switch">Запомнить меня</string>
+    <string name="text_password_notification">Пароль должен содержать хотя бы одну строчную и заглавную латинские буквы и одну цифру</string>
+    <string name="text_password_size_notification">Пароль должен быть не короче 6 символов</string>
+    <string name="text_email_notification">Неверный E-Mail адрес!</string>
+    <string name="text_email_empty_notification">Поле "E-Mail" должно быть заполнено!</string>
+    <string name="text_btn_register_now">Зарегистрироваться</string>
+    <string name="text_nickname_notification">Поле никнейма должно быть заполнено!</string>
+    <string name="text_btn_load_photo">Загрузить фото</string>
+    <string name="text_password_hint">Пароль</string>
+    <string name="text_email_hint">E-mail</string>
+    <string name="text_header_enter_email">Введите адрес электронной почты</string>
+    <string name="text_btn_forward">Далее</string>
+    <string name="text_nickname_hint">Имя или никнейм</string>
+    <string name="text_qustion_nick">Как вас называть?</string>
+    <string name="text_button_reg_and_log">Зарегистрироваться и войти</string>
+    <string name="text_reply_pass_hint">Повторите пароль</string>
+    <string name="text_header_pass">Введите пароль</string>
+    <string name="text_btn_pass_reminder">Напомнить пароль</string>
+    <string name="text_email_remind_pass">Введите адрес почты, пароль для которой нажно восстановить</string>
+    <string name="text_reply_pass_notification">Пароли не совпадают!</string>
+    <string name="text_new_pass">Новый пароль</string>
+    <string name="text_header_enter_new_pass">Введите новый пароль</string>
+
+    <string-array name="Rates">
+        <item>RUB</item>
+        <item>USD</item>
+        <item>AUD</item>
+        <item>CZK</item>
+    </string-array>
+
+</resources>
