@@ -9,4 +9,6 @@ interface IRatesView {
     fun setLoading(isLoading: Boolean)
 
     fun showError(message:String)
+
+    fun logout()
 }

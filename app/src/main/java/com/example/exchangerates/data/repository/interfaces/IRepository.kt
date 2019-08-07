@@ -6,4 +6,6 @@ import io.reactivex.Single
 interface IRepository {
 
     fun getRates(baseRate: String): Single<RootObject>
+
+    fun logOut()
 }

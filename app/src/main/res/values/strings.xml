@@ -29,6 +29,8 @@
     <string name="text_reply_pass_notification">Пароли не совпадают!</string>
     <string name="text_new_pass">Новый пароль</string>
     <string name="text_header_enter_new_pass">Введите новый пароль</string>
+    <string name="text_appbar_header">Валюта</string>
+    <string name="text_user_not_exists">Такой пользователь не залогинен</string>
 
     <string-array name="Rates">
         <item>RUB</item>

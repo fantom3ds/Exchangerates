@@ -80,12 +80,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:title="Валюта"
+                    app:title="@string/text_appbar_header"
                     app:layout_collapseMode="pin"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
-
 
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -124,41 +123,5 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorTransparentBlack3"
-            android:id="@+id/v_shadow"
-            android:visibility="gone"/>
-
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_bottom_sheet"
-            android:padding="@dimen/margin_x1"
-            app:behavior_hideable="true"
-            app:behavior_peekHeight="0dp"
-            app:layout_behavior="@string/bottom_sheet_behavior"
-            android:id="@+id/bottom_sheet">
-
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_load_check"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:text="@string/text_btn_load_photo"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="@dimen/margin_x1"/>
-
-        <Button
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/button_oval"
-                android:id="@+id/btn_open_camera"/>
-    </LinearLayout>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

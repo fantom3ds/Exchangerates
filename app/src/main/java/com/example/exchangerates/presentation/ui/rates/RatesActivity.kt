@@ -46,6 +46,11 @@ class RatesActivity : AppCompatActivity(), IRatesView {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
+    override fun logout() {
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,9 +111,7 @@ class RatesActivity : AppCompatActivity(), IRatesView {
                     .setTitle("${App.instance.userName},вы действительно хотите выйти из своего аккаунта?")
                     .setPositiveButton("Да", object : DialogInterface.OnClickListener {
                         override fun onClick(dialog: DialogInterface, arg1: Int) {
-                            App.instance.logOut()
-                            startActivity(Intent(this@RatesActivity, LoginActivity::class.java))
-                            finish()
+                            presenter.logout()
                         }
                     })
                     .setNegativeButton("Нет", object : DialogInterface.OnClickListener {

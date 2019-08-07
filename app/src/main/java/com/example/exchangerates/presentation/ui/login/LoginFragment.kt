@@ -7,41 +7,80 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.exchangerates.App
 import com.example.exchangerates.R
-import com.example.exchangerates.isEmail
-import com.example.exchangerates.isPassword
+import com.example.exchangerates.presentation.presenter.ILoginView
+import com.example.exchangerates.presentation.presenter.LoginPresenter
 import com.example.exchangerates.presentation.ui.rates.RatesActivity
 import com.example.exchangerates.presentation.ui.register.RegUsernameFragment
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
-class LoginFragment : Fragment(), View.OnClickListener {
+class LoginFragment : Fragment(), View.OnClickListener, ILoginView {
+
+    val presenter = LoginPresenter(this)
+
+
+
+    override fun setErrorCode(isError: Boolean, type: Int) {
+        when (type) {
+            //1 - неверный e-mail
+            1 -> {
+                if (isError) {
+                    layout_email.error = getString(R.string.text_email_notification)
+                    layout_email.isErrorEnabled = true
+                    btn_login.isEnabled = false
+                } else {
+                    layout_email.error = null
+                    layout_email.isErrorEnabled = false
+                    btn_login.isEnabled = true
+                }
+            }
+            //2 - пароль неверен
+            2 -> {
+                if (isError) {
+                    layout_password.error = getString(R.string.text_password_notification)
+                    layout_password.isErrorEnabled = true
+                    btn_login.isEnabled = false
+                } else {
+                    layout_password.error = null
+                    layout_password.isErrorEnabled = false
+                    btn_login.isEnabled = true
+                }
+            }
+            //21 - пароль короткий
+            21 -> {
+                if (isError) {
+                    layout_password.error = getString(R.string.text_password_size_notification)
+                    layout_password.isErrorEnabled = true
+                    btn_login.isEnabled = false
+                } else {
+                    layout_password.error = null
+                    layout_password.isErrorEnabled = false
+                    btn_login.isEnabled = true
+                }
+            }
+            //других ошибок тут быть не может, выводим что есть
+            else -> {
+                if (isError) {
+                    Toast.makeText(context, "Код ошибки $type", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    override fun successLogin() {
+        startActivity(Intent(context, RatesActivity::class.java))
+        activity?.finish()
+    }
+
+
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.btn_login -> {
-                if (edit_text_password.text.toString().isPassword() &&
-                    edit_text_email.text.toString().isEmail()
-                ) {
-                    App.instance.logIn(
-                        "User",
-                        edit_text_email.text.toString(),
-                        edit_text_password.text.toString()
-                    )
-                    startActivity(Intent(context, RatesActivity::class.java))
-                    activity?.finish()
-                } else {
-                    //Чтобы сработали регулярки и выдали ошибки
-                    if (edit_text_email.text.toString().isEmpty()) {
-                        edit_text_email.setText("")
-                    }
-                    if (edit_text_password.text.toString().isEmpty()) {
-                        edit_text_password.setText("")
-                    }
-                    btn_login.isEnabled = false
-                }
+                presenter.login(edit_text_email.text.toString(), edit_text_password.text.toString(), true)
             }
 
             R.id.btn_forgot_pass -> {
@@ -88,20 +127,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
             }
 
             override fun afterTextChanged(s: Editable) {
-                if (s.isEmpty()) {
-                    layout_email.isErrorEnabled = true
-                    layout_email.error = getString(R.string.text_email_empty_notification)
-                    btn_login.isEnabled = false
-                } else {
-                    if (!s.toString().isEmail()) {
-                        layout_email.isErrorEnabled = true
-                        layout_email.error = getString(R.string.text_email_notification)
-                        btn_login.isEnabled = false
-                    } else {
-                        layout_email.isErrorEnabled = false
-                        btn_login.isEnabled = true
-                    }
-                }
+                presenter.checkEmail(s.toString())
             }
         })
 
@@ -114,19 +140,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
             }
 
             override fun afterTextChanged(s: Editable) {
-                if (s.length < 6) {
-                    layout_password.isErrorEnabled = true
-                    layout_password.error = getString(R.string.text_password_size_notification)
-                    btn_login.isEnabled = false
-                } else
-                    if (!s.toString().isPassword()) {
-                        layout_password.isErrorEnabled = true
-                        layout_password.error = getString(R.string.text_password_notification)
-                        btn_login.isEnabled = false
-                    } else {
-                        layout_password.isErrorEnabled = false
-                        btn_login.isEnabled = true
-                    }
+                presenter.checkPassword(s.toString())
             }
         })
     }

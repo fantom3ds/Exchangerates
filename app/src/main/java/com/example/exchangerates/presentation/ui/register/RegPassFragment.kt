@@ -8,13 +8,52 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.exchangerates.App
 import com.example.exchangerates.R
-import com.example.exchangerates.isPassword
+import com.example.exchangerates.presentation.presenter.ILoginView
+import com.example.exchangerates.presentation.presenter.LoginPresenter
 import com.example.exchangerates.presentation.ui.rates.RatesActivity
 import kotlinx.android.synthetic.main.fragment_user_pass.*
 
-class RegPassFragment : Fragment() {
+class RegPassFragment : Fragment(), ILoginView {
+
+    private val presenter = LoginPresenter(this)
+
+    override fun successLogin() {
+        startActivity(Intent(context, RatesActivity::class.java))
+        activity?.finish()
+    }
+
+    override fun setErrorCode(isError: Boolean, type: Int) {
+        when (type) {
+            //2 - пароль неверен
+            2 -> {
+                if (isError)
+                    layout_user_pass.error = getString(R.string.text_password_notification)
+                else
+                    layout_user_pass.error = null
+                layout_user_pass.isErrorEnabled = isError
+                btn_register_now.isEnabled = !isError
+            }
+            //21 - пароль короткий
+            21 -> {
+                if (isError)
+                    layout_user_pass.error = getString(R.string.text_password_size_notification)
+                else
+                    layout_user_pass.error = null
+                layout_user_pass.isErrorEnabled = isError
+                btn_register_now.isEnabled = !isError
+            }
+            //22 - пароли не совпадают
+            22 -> {
+                if (isError)
+                    layout_reply_user_pass.error = getString(R.string.text_reply_pass_notification)
+                else
+                    layout_reply_user_pass.error = null
+                layout_reply_user_pass.isErrorEnabled = isError
+                btn_register_now.isEnabled = !isError
+            }
+        }
+    }
 
     companion object {
         fun newInstance(userNick: String?, userMail: String?): RegPassFragment {
@@ -42,20 +81,7 @@ class RegPassFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable) {
-                if (s.length < 6) {
-                    layout_user_pass.isErrorEnabled = true
-                    layout_user_pass.error = getString(R.string.text_password_size_notification)
-                    btn_register_now.isEnabled = false
-                } else {
-                    if (!s.toString().isPassword()) {
-                        layout_user_pass.isErrorEnabled = true
-                        layout_user_pass.error = getString(R.string.text_password_notification)
-                        btn_register_now.isEnabled = false
-                    } else {
-                        layout_user_pass.isErrorEnabled = false
-                        btn_register_now.isEnabled = true
-                    }
-                }
+                presenter.checkPassword(s.toString())
             }
         })
 
@@ -68,35 +94,16 @@ class RegPassFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable) {
-                if (s.length < 6) {
-                    layout_reply_user_pass.isErrorEnabled = true
-                    layout_reply_user_pass.error = getString(R.string.text_password_size_notification)
-                    btn_register_now.isEnabled = false
-                } else
-                    if (edit_text_user_pass.text.toString() != edit_text_reply_user_pass.text.toString()) {
-                        layout_reply_user_pass.isErrorEnabled = true
-                        layout_reply_user_pass.error = getString(R.string.text_reply_pass_notification)
-                        btn_register_now.isEnabled = false
-                    } else {
-                        layout_reply_user_pass.isErrorEnabled = false
-                        layout_reply_user_pass.error = null
-                        btn_register_now.isEnabled = true
-                    }
+                presenter.comparePasswords(s.toString(),edit_text_user_pass.text.toString())
             }
         })
 
         btn_register_now.setOnClickListener {
-            if (layout_user_pass.isErrorEnabled || layout_reply_user_pass.isErrorEnabled) {
-                it.isEnabled = false
-            } else {
-                App.instance.logIn(
-                    arguments?.getString("Nick"),
-                    arguments?.getString("Mail"),
-                    edit_text_user_pass.text.toString()
-                )
-                startActivity(Intent(context, RatesActivity::class.java))
-                activity?.finish()
-            }
+            presenter.register(
+                arguments?.getString("Mail").toString(),
+                edit_text_user_pass.text.toString(),
+                arguments?.getString("Nick").toString()
+            )
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.exchangerates.presentation.presenter
 
+import com.example.exchangerates.data.repository.LoginRepository
 import com.example.exchangerates.data.repository.MainRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -7,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 class RatesPresenter(val view: IRatesView) {
 
     val repository = MainRepository.instance
-
+    val loginRepository = LoginRepository.instance
 
     fun showRates(baseRate: String) {
         view.setLoading(true)
@@ -37,6 +38,11 @@ class RatesPresenter(val view: IRatesView) {
                 view.setLoading(false)
                 view.showError(it.message ?: "Unknown error")
             })
+    }
+
+    fun logout() {
+        loginRepository.logout()
+        view.logout()
     }
 
 }

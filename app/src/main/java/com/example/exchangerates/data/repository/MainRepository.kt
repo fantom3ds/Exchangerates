@@ -1,5 +1,6 @@
 package com.example.exchangerates.data.repository
 
+import com.example.exchangerates.App
 import com.example.exchangerates.data.model.RootObject
 import com.example.exchangerates.data.network.APIClient
 import com.example.exchangerates.data.repository.interfaces.IRepository
@@ -21,4 +22,9 @@ class MainRepository : IRepository {
         return apiService.getRates(baseRate)
     }
 
+    override fun logOut() {
+        App.instance.apply {
+            token = null
+        }
+    }
 }

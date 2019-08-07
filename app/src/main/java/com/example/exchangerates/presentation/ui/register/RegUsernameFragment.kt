@@ -6,11 +6,33 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.exchangerates.R
+import com.example.exchangerates.presentation.presenter.ILoginView
+import com.example.exchangerates.presentation.presenter.LoginPresenter
 import kotlinx.android.synthetic.main.fragment_reg_username.*
 
-class RegUsernameFragment : Fragment() {
+class RegUsernameFragment : Fragment(), ILoginView {
+
+    private val presenter: LoginPresenter = LoginPresenter(this)
+
+    override fun successLogin() {
+    }
+
+    override fun setErrorCode(isError: Boolean, type: Int) {
+        if (type == 3) {
+            if (isError) {
+                layout_user_nick.error = getString(R.string.text_nickname_notification)
+            } else {
+                layout_user_nick.error = null
+            }
+            btn_enter_name.isEnabled = !isError
+            layout_user_nick.isErrorEnabled = isError
+        } else {
+            Toast.makeText(context, "Код ошибки $type", Toast.LENGTH_LONG).show()
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_reg_username, container, false)
@@ -30,22 +52,12 @@ class RegUsernameFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable) {
-                if (s.isEmpty()) {
-                    layout_user_nick.isErrorEnabled = true
-                    layout_user_nick.error = getString(R.string.text_nickname_notification)
-                    btn_enter_name.isEnabled = false
-                } else {
-                    layout_user_nick.isErrorEnabled = false
-                    layout_user_nick.error = null
-                    btn_enter_name.isEnabled = true
-                }
+                presenter.checkNickname(s.toString())
             }
         })
 
         btn_enter_name.setOnClickListener {
-            if (edit_text_user_nick.text.toString().isEmpty()) {
-                btn_enter_name.isEnabled = false
-            } else {
+            if (presenter.checkNickname(edit_text_user_nick.text.toString()))
                 activity?.supportFragmentManager
                     ?.beginTransaction()
                     ?.replace(
@@ -55,7 +67,6 @@ class RegUsernameFragment : Fragment() {
                     )
                     ?.addToBackStack(null)
                     ?.commit()
-            }
         }
     }
 
