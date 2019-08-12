@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.exchangerates.R
 import com.example.exchangerates.presentation.presenter.ILoginView
@@ -19,8 +20,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment(), View.OnClickListener, ILoginView {
 
-    val presenter = LoginPresenter(this)
-
+    private val presenter = LoginPresenter(this)
 
 
     override fun setErrorCode(isError: Boolean, type: Int) {
@@ -117,6 +117,8 @@ class LoginFragment : Fragment(), View.OnClickListener, ILoginView {
         btn_login.setOnClickListener(this)
         btn_register.setOnClickListener(this)
         btn_forgot_pass.setOnClickListener(this)
+
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Вход"
 
         layout_email.editText?.addTextChangedListener(object : TextWatcher {
 

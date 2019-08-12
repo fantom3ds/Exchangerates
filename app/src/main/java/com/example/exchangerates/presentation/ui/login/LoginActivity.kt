@@ -18,6 +18,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         setSupportActionBar(al_toolbar)
+        //al_toolbar?.title = "Вход"
+        supportActionBar?.title="Вход"
 
         if (App.instance.token != null) {
             startActivity(Intent(this, RatesActivity::class.java))
@@ -48,8 +50,7 @@ class LoginActivity : AppCompatActivity() {
                         dialog.dismiss()
                     }
                 }).create().show()
-        }
-        else{
+        } else {
             super.onBackPressed()
         }
     }

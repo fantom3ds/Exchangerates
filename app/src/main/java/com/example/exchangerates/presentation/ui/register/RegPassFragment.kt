@@ -7,11 +7,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.exchangerates.R
 import com.example.exchangerates.presentation.presenter.ILoginView
 import com.example.exchangerates.presentation.presenter.LoginPresenter
 import com.example.exchangerates.presentation.ui.rates.RatesActivity
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_user_pass.*
 
 class RegPassFragment : Fragment(), ILoginView {
@@ -71,6 +73,8 @@ class RegPassFragment : Fragment(), ILoginView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Установка пароля"
 
         layout_user_pass.editText?.addTextChangedListener(object : TextWatcher {
 

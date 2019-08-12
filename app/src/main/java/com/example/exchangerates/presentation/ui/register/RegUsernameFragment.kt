@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.exchangerates.R
 import com.example.exchangerates.presentation.presenter.ILoginView
@@ -40,6 +41,8 @@ class RegUsernameFragment : Fragment(), ILoginView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Ввод имени пользователя"
 
         edit_text_user_nick.setText(savedInstanceState?.getString("userNick"))
 

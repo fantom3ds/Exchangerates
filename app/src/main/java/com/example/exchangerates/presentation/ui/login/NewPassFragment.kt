@@ -12,6 +12,7 @@ import com.example.exchangerates.R
 import com.example.exchangerates.presentation.presenter.ILoginView
 import com.example.exchangerates.presentation.presenter.LoginPresenter
 import com.example.exchangerates.presentation.ui.rates.RatesActivity
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_new_pass.*
 
 class NewPassFragment : Fragment(), ILoginView {
@@ -70,6 +71,8 @@ class NewPassFragment : Fragment(), ILoginView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        al_toolbar?.title = "Восстановление пароля"
 
         layout_new_pass.editText?.addTextChangedListener(object : TextWatcher {
 

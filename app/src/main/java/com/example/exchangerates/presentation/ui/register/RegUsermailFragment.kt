@@ -6,10 +6,12 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.exchangerates.R
 import com.example.exchangerates.presentation.presenter.ILoginView
 import com.example.exchangerates.presentation.presenter.LoginPresenter
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_reg_usermail.*
 
 class RegUsermailFragment : Fragment(), ILoginView {
@@ -44,6 +46,8 @@ class RegUsermailFragment : Fragment(), ILoginView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Ввод электронной почты"
 
         edit_text_user_mail.setText(savedInstanceState?.getString("userMail"))
 
